@@ -42,7 +42,7 @@ def insertBd():
                                                                         ".azure.com", port=5432,
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
-        insert_table_query = ("INSERT INTO usuarios (nombre, url, token) VALUES ('Juan Pérez', 'https://ejemplo.com', 'abc123');")
+        insert_table_query = ("INSERT INTO usuarios (nombre, url, token) VALUES (%s , %s ,%s)",('Juan Pérez', 'https://ejemplo.com', 'abc123'))
         cursor.execute(insert_table_query)
         cnx.commit()
     except Exception as e:
