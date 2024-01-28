@@ -8,12 +8,13 @@ from flask import (Flask, redirect, render_template, request,
 app = Flask(__name__)
 
 
-@app.route('/createbd')
+@app.route('/create')
 def createBd():
+    contra = os.environ.get('CONTRA')
     try:
-        cnx = psycopg2.connect(user="wundvabjfd", password=os.environ.get('CONTRA'), host="juegogustosmusicales"
-                                                                                          "-server.postgres.database"
-                                                                                          ".azure.com", port=5432,
+        cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
+                                                                        "-server.postgres.database"
+                                                                        ".azure.com", port=5432,
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
         create_table_query = ("CREATE TABLE IF NOT EXISTS usuarios (id SERIAL PRIMARY KEY,nombre VARCHAR(255),"
@@ -22,41 +23,43 @@ def createBd():
         cnx.commit()
     except Exception as e:
         # Si se produce un error, imprímelo
-        return e
-    finally:
+        return str(e)
+   # finally:
         # Cierra el cursor y la conexión
-        if cursor:
-            cursor.close()
-        if cnx:
-            cnx.close()
+        # if cursor:
+        #     cursor.close()
+        # if cnx:
+    #     cnx.close()
 
-    password = os.environ.get('CONTRA')
     return "La tabla fue creada correctamente."
-    
+
+
 @app.route('/')
 def index():
-   print('Request for index page received')
-   return render_template('index.html')
+    print('Request for index page received')
+    return render_template('index.html')
+
 
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+
 @app.route('/hello', methods=['POST'])
 def hello():
-   longitud=32
-   name = request.form.get('name')
-   url = request.form.get('url')
-   token = secrets.token_hex(longitud // 2)
+    longitud = 32
+    name = request.form.get('name')
+    url = request.form.get('url')
+    token = secrets.token_hex(longitud // 2)
 
-   if name:
-       print('Request for hello page received with name=%s' % name)
-       return render_template('hello.html', name = name , url = url , token = token)
-   else:
-       print('Request for hello page received with no name or blank name -- redirecting')
-       return redirect(url_for('index'))
+    if name:
+        print('Request for hello page received with name=%s' % name)
+        return render_template('hello.html', name=name, url=url, token=token)
+    else:
+        print('Request for hello page received with no name or blank name -- redirecting')
+        return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
-   app.run()
+    app.run()
