@@ -33,6 +33,29 @@ def createBd():
 
     return "La tabla fue creada correctamente."
 
+@app.route('/insert')
+def insertBd():
+    contra = os.environ.get('CONTRA')
+    try:
+        cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
+                                                                        "-server.postgres.database"
+                                                                        ".azure.com", port=5432,
+                               database="juegogustosmusicales-database")
+        cursor = cnx.cursor()
+        insert_table_query = ("INSERT INTO usuarios (nombre, url, token) VALUES ('Juan Pérez', 'https://ejemplo.com', 'abc123');")
+        cursor.execute(insert_table_query)
+        cnx.commit()
+    except Exception as e:
+        # Si se produce un error, imprímelo
+        return str(e)
+   # finally:
+        # Cierra el cursor y la conexión
+        # if cursor:
+        #     cursor.close()
+        # if cnx:
+    #     cnx.close()
+
+    return "registro insertado correctamente."
 
 @app.route('/')
 def index():
