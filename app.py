@@ -69,6 +69,31 @@ def listBd():
         select_query = "SELECT COUNT(*) FROM usuarios;"
         cursor.execute(select_query)
         # Obtener todos los resultados
+        elementos = cursor.fetchall()
+        #numero_filas = cursor.fetchone()[0]
+    except Exception as e:
+        # En caso de error, imprimir el mensaje de error
+        #elementos = []
+        #mensaje_error = f'Error al obtener elementos: {str(e)}'
+        numero_filas = 0
+        return "petando voy"
+
+    return render_template('lista_elementos.html', elementos=elementos)
+    #return str(numero_filas)
+
+
+@app.route('/count')
+def countBd():
+    contra = os.environ.get('CONTRA')
+    try:
+        cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
+                                                                        "-server.postgres.database"
+                                                                        ".azure.com", port=5432,
+                               database="juegogustosmusicales-database")
+        cursor = cnx.cursor()
+        select_query = "SELECT COUNT(*) FROM usuarios;"
+        cursor.execute(select_query)
+        # Obtener todos los resultados
         #elementos = cursor.fetchall()
         numero_filas = cursor.fetchone()[0]
     except Exception as e:
