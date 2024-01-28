@@ -19,6 +19,7 @@ def favicon():
 
 @app.route('/hello', methods=['POST'])
 def hello():
+   longitud=32
    name = request.form.get('name')
    url = request.form.get('url')
    token = secrets.token_hex(longitud // 2)
