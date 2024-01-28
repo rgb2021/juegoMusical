@@ -20,7 +20,6 @@ def createBd():
                               "url VARCHAR(255),token VARCHAR(255));")
         cursor.execute(create_table_query)
         cnx.commit()
-        print("La tabla fue creada correctamente.")
     except Exception as e:
         # Si se produce un error, imprímelo
         return e
@@ -32,7 +31,8 @@ def createBd():
             cnx.close()
 
     password = os.environ.get('CONTRA')
-    return password
+    return "La tabla fue creada correctamente."
+    
 @app.route('/')
 def index():
    print('Request for index page received')
