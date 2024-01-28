@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lista de Elementos</title>
+  </head>
+  <body>
+    <h1>Lista de Elementos</h1>
+    {% if mensaje_error %}
+      <p>{{ mensaje_error }}</p>
+    {% else %}
+      <ul>
+        {% for elemento in elementos %}
+          <li>{{ elemento }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </body>
+</html>

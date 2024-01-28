@@ -57,6 +57,25 @@ def insertBd():
 
     return "registro insertado correctamente."
 
+@app.route('/list')
+def listBd():
+    contra = os.environ.get('CONTRA')
+    try:
+        cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
+                                                                        "-server.postgres.database"
+                                                                        ".azure.com", port=5432,
+                               database="juegogustosmusicales-database")
+        cursor = cnx.cursor()
+        select_query = "SELECT * FROM usuarios;"
+        cursor.execute(select_query)
+        # Obtener todos los resultados
+        elementos = cursor.fetchall()
+    except Exception as e:
+        # En caso de error, imprimir el mensaje de error
+        elementos = []
+        mensaje_error = f'Error al obtener elementos: {str(e)}'
+        return render_template('lista_elementos.html', elementos=elementos, mensaje_error=mensaje_error)
+
 @app.route('/')
 def index():
     print('Request for index page received')
