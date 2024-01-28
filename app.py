@@ -1,4 +1,5 @@
 import os
+import secrets
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
@@ -20,10 +21,11 @@ def favicon():
 def hello():
    name = request.form.get('name')
    url = request.form.get('url')
+   token = secrets.token_hex(longitud // 2)
 
    if name:
        print('Request for hello page received with name=%s' % name)
-       return render_template('hello.html', name = name , url = url)
+       return render_template('hello.html', name = name , url = url , token = token)
    else:
        print('Request for hello page received with no name or blank name -- redirecting')
        return redirect(url_for('index'))
