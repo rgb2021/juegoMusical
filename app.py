@@ -10,16 +10,16 @@ app = Flask(__name__)
 
 @app.route('/createbd')
 def createBd():
-    cnx = psycopg2.connect(user="wundvabjfd", password="33QKCQ05XG2U7IJY$", host="juegogustosmusicales-server.postgres.database.azure.com", port=5432, database="juegogustosmusicales-database")
+    cnx = psycopg2.connect(user="wundvabjfd", password=os.environ.get('CONTRA'), host="juegogustosmusicales-server.postgres.database.azure.com", port=5432, database="juegogustosmusicales-database")
     cursor = cnx.cursor()
     create_table_query = '''
-CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(255),
-    url VARCHAR(255),
-    token VARCHAR(255)
-);
-'''
+    CREATE TABLE usuarios (
+        id SERIAL PRIMARY KEY,
+        nombre VARCHAR(255),
+        url VARCHAR(255),
+        token VARCHAR(255)
+    );
+    '''
     cursor.execute(create_table_query)
     connection.commit()
     print("La tabla fue creada correctamente.")
