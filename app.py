@@ -1,5 +1,6 @@
 import os
 import secrets
+import psycopg2
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
@@ -7,6 +8,34 @@ from flask import (Flask, redirect, render_template, request,
 app = Flask(__name__)
 
 
+@app.route('/createbd')
+def createBd():
+    cnx = psycopg2.connect(user="wundvabjfd", password="33QKCQ05XG2U7IJY$", host="juegogustosmusicales-server.postgres.database.azure.com", port=5432, database="juegogustosmusicales-database")
+    cursor = cnx.cursor()
+    create_table_query = '''
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(255),
+    url VARCHAR(255),
+    token VARCHAR(255)
+);
+'''
+    cursor.execute(create_table_query)
+    connection.commit()
+    print("La tabla fue creada correctamente.")
+
+except Exception as e:
+    # Si se produce un error, imprímelo
+    print("Error:", e)
+
+finally:
+    # Cierra el cursor y la conexión
+    if cursor:
+        cursor.close()
+    if connection:
+        connection.close()
+    
+   
 @app.route('/')
 def index():
    print('Request for index page received')
