@@ -10,28 +10,29 @@ app = Flask(__name__)
 
 @app.route('/createbd')
 def createBd():
-    try:
-        cnx = psycopg2.connect(user="wundvabjfd", password=os.environ.get('CONTRA'), host="juegogustosmusicales"
-                                                                                          "-server.postgres.database"
-                                                                                          ".azure.com", port=5432,
-                               database="juegogustosmusicales-database")
-        cursor = cnx.cursor()
-        create_table_query = ("CREATE TABLE IF NOT EXISTS usuarios (id SERIAL PRIMARY KEY,nombre VARCHAR(255),"
-                              "url VARCHAR(255),token VARCHAR(255));")
-        cursor.execute(create_table_query)
-        cnx.commit()
-        print("La tabla fue creada correctamente.")
-    except Exception as e:
-        # Si se produce un error, imprímelo
-        print("Error:", e)
-    finally:
-        # Cierra el cursor y la conexión
-        if cursor:
-            cursor.close()
-        if cnx:
-            cnx.close()
-    
-   
+#    try:
+#        cnx = psycopg2.connect(user="wundvabjfd", password=os.environ.get('CONTRA'), host="juegogustosmusicales"
+#                                                                                          "-server.postgres.database"
+#                                                                                          ".azure.com", port=5432,
+#                               database="juegogustosmusicales-database")
+#        cursor = cnx.cursor()
+#        create_table_query = ("CREATE TABLE IF NOT EXISTS usuarios (id SERIAL PRIMARY KEY,nombre VARCHAR(255),"
+#                              "url VARCHAR(255),token VARCHAR(255));")
+#        cursor.execute(create_table_query)
+#        cnx.commit()
+#        print("La tabla fue creada correctamente.")
+#    except Exception as e:
+#        # Si se produce un error, imprímelo
+#        print("Error:", e)
+#    finally:
+#        # Cierra el cursor y la conexión
+#        if cursor:
+#            cursor.close()
+#        if cnx:
+#            cnx.close()
+
+    password = os.environ.get('CONTRA')
+    print(password)
 @app.route('/')
 def index():
    print('Request for index page received')
