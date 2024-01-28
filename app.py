@@ -74,7 +74,8 @@ def listBd():
         # En caso de error, imprimir el mensaje de error
         elementos = []
         mensaje_error = f'Error al obtener elementos: {str(e)}'
-        return render_template('lista_elementos.html', elementos=elementos, mensaje_error=mensaje_error)
+
+    return render_template('lista_elementos.html', elementos=elementos, mensaje_error=mensaje_error)
 
 @app.route('/')
 def index():
