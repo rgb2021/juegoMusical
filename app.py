@@ -32,7 +32,7 @@ def createBd():
 #            cnx.close()
 
     password = os.environ.get('CONTRA')
-    print(password)
+    return password
 @app.route('/')
 def index():
    print('Request for index page received')
