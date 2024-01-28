@@ -66,16 +66,20 @@ def listBd():
                                                                         ".azure.com", port=5432,
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
-        select_query = "SELECT * FROM usuarios;"
+        select_query = "SELECT COUNT(*) FROM usuarios;"
         cursor.execute(select_query)
         # Obtener todos los resultados
-        elementos = cursor.fetchall()
+        #elementos = cursor.fetchall()
+        numero_filas = cursor.fetchone()[0]
     except Exception as e:
         # En caso de error, imprimir el mensaje de error
-        elementos = []
-        mensaje_error = f'Error al obtener elementos: {str(e)}'
+        #elementos = []
+        #mensaje_error = f'Error al obtener elementos: {str(e)}'
+        numero_filas = 0
+        return "petando voy"
 
-    return render_template('lista_elementos.html', elementos=elementos, mensaje_error=mensaje_error)
+    #return render_template('lista_elementos.html', elementos=elementos, mensaje_error=mensaje_error)
+    return str(numero_filas)
 
 @app.route('/')
 def index():
