@@ -33,11 +33,12 @@ def createBd():
 
     return "La tabla fue creada correctamente."
 
-@app.route('/insert')
+@app.route('/insert', methods=['POST'])
 def insertBd():
     contra = os.environ.get('CONTRA')
-    name = request.form.get('name')
-    url = request.form.get('token')
+    name = request.args.get('name')
+    url = request.args.get('url')
+    token = request.args.get('token')
     try:
         cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
                                                                         "-server.postgres.database"
@@ -45,7 +46,7 @@ def insertBd():
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
         insert_table_query = ("INSERT INTO usuarios (nombre, url, token) VALUES (%s , %s ,%s)")
-        cursor.execute(insert_table_query,'Juan Pérez', 'https://ejemplo.com', 'abc123')
+        cursor.execute(insert_table_query,name, url, token)
         cnx.commit()
     except Exception as e:
         # Si se produce un error, imprímelo
@@ -57,7 +58,7 @@ def insertBd():
         # if cnx:
     #     cnx.close()
 
-    return "registro insertado correctamente."
+    return render_template('hello.html', name=name, url=url, token=token)
 
 @app.route('/list')
 def listBd():
@@ -129,7 +130,7 @@ def hello():
 
     if name:
         print('Request for hello page received with name=%s' % name)
-        return render_template('hello.html', name=name, url=url, token=token)
+       
     else:
         print('Request for hello page received with no name or blank name -- redirecting')
         return redirect(url_for('index'))
