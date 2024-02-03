@@ -46,7 +46,7 @@ def insertBd():
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
         insert_table_query = ("INSERT INTO usuarios (nombre, url, token) VALUES (%s , %s ,%s)")
-        cursor.execute(insert_table_query,name, url, token)
+        cursor.execute(insert_table_query,(name, url, token))
         cnx.commit()
     except Exception as e:
         # Si se produce un error, imprímelo
