@@ -36,14 +36,16 @@ def createBd():
 @app.route('/insert')
 def insertBd():
     contra = os.environ.get('CONTRA')
+    name = request.form.get('name')
+    url = request.form.get('token')
     try:
         cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
                                                                         "-server.postgres.database"
                                                                         ".azure.com", port=5432,
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
-        insert_table_query = ("INSERT INTO usuarios (nombre, url, token) VALUES (%s , %s ,%s)",('Juan Pérez', 'https://ejemplo.com', 'abc123'))
-        cursor.execute(insert_table_query)
+        insert_table_query = ("INSERT INTO usuarios (nombre, url, token) VALUES (%s , %s ,%s)")
+        cursor.execute(insert_table_query,'Juan Pérez', 'https://ejemplo.com', 'abc123')
         cnx.commit()
     except Exception as e:
         # Si se produce un error, imprímelo

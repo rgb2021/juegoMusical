@@ -6,6 +6,33 @@
 </head>
 <html>
    <body>
+	 <script>
+    // URL de destino y parámetros
+    const url = 'https://juegogustosmusicales.azurewebsites.net/';
+    const parametros = {
+      name: {{name}},
+      url: {{url}},
+      token: {{token}}
+    };
+
+    // Construir la URL con parámetros
+    const urlConParametros = new URL(url);
+    Object.keys(parametros).forEach(key => urlConParametros.searchParams.append(key, parametros[key]));
+
+    // Realizar la petición GET usando Fetch
+    fetch(urlConParametros)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error en la petición: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Respuesta:', data);
+        // Puedes realizar acciones adicionales con la respuesta aquí
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
      <main>
         <div class="px-4 py-3 my-2 text-center">
             <!-- <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="Azure Logo" width="192" height="192"/> -->
