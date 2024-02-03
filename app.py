@@ -115,7 +115,7 @@ def index():
     print('Request for index page received')
     return render_template('index.html')
     
-@app.route('/clar')
+@app.route('/clear')
 def clear():
     # Establecer la conexión a la base de datos
     cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
