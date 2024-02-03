@@ -126,7 +126,7 @@ def clear():
         # Ejecutar la sentencia DELETE
         cursor.execute(delete_query)
         # Confirmar los cambios en la base de datos
-        cnx.commit()
+        #cnx.commit()
     except Exception as e:
         # En caso de error, imprimir el mensaje de error
         return str(e)
