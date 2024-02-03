@@ -66,7 +66,7 @@ def listBd():
                                                                         ".azure.com", port=5432,
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
-        select_query = "SELECT FROM usuarios;"
+        select_query = "SELECT * FROM usuarios;"
         cursor.execute(select_query)
         # Obtener todos los resultados
         elementos = cursor.fetchall()
