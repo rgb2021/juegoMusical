@@ -38,6 +38,7 @@ def insertBd():
     contra = os.environ.get('CONTRA')
     name = request.form.get('name')
     url = request.form.get('url')
+    longitud = 32
     token = secrets.token_hex(longitud // 2)
     try:
         cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
