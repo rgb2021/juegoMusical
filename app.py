@@ -123,21 +123,17 @@ def clear():
                                                                         ".azure.com", port=5432,
                                database="juegogustosmusicales-database")
     cursor = cnx.cursor()
-
     # Construir la sentencia SQL DELETE
     delete_query = "DELETE FROM usuarios;"
-
     try:
         # Ejecutar la sentencia DELETE
         cursor.execute(delete_query)
-
         # Confirmar los cambios en la base de datos
         cnx.commit()
-
-        return (f"La tabla usuarios ha sido vaciada exitosamente.")
+        return "La tabla usuarios ha sido vaciada exitosamente."
     except Exception as e:
         # En caso de error, imprimir el mensaje de error
-        return (f"Error: {e}")
+        return str(e)
     #finally:
         # Cerrar el cursor y la conexión
         #cursor.close()
