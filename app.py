@@ -118,10 +118,7 @@ def index():
 @app.route('/clear')
 def clear():
     # Establecer la conexión a la base de datos
-    cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
-                                                                        "-server.postgres.database"
-                                                                        ".azure.com", port=5432,
-                               database="juegogustosmusicales-database")
+    cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales-server.postgres.database.azure.com", port=5432,database="juegogustosmusicales-database")
     cursor = cnx.cursor()
     # Construir la sentencia SQL DELETE
     delete_query = "DELETE FROM usuarios;"
@@ -130,15 +127,14 @@ def clear():
         cursor.execute(delete_query)
         # Confirmar los cambios en la base de datos
         cnx.commit()
-        return "La tabla usuarios ha sido vaciada exitosamente."
     except Exception as e:
         # En caso de error, imprimir el mensaje de error
         return str(e)
     #finally:
-        # Cerrar el cursor y la conexión
-        #cursor.close()
-        #conn.close()
-
+    # Cerrar el cursor y la conexión
+    #cursor.close()
+    #conn.close()
+    return "La tabla usuarios ha sido vaciada exitosamente."
 
 @app.route('/favicon.ico')
 def favicon():
