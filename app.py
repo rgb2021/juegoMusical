@@ -36,9 +36,9 @@ def createBd():
 @app.route('/insert', methods=['POST'])
 def insertBd():
     contra = os.environ.get('CONTRA')
-    name = request.args.get('name')
-    url = request.args.get('url')
-    token = request.args.get('token')
+    name = request.form.get('name')
+    url = request.form.get('url')
+    token = request.form.get('token')
     try:
         cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
                                                                         "-server.postgres.database"
