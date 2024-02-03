@@ -117,12 +117,15 @@ def index():
     
 @app.route('/clear')
 def clear():
-    # Establecer la conexión a la base de datos
-    cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales-server.postgres.database.azure.com", port=5432,database="juegogustosmusicales-database")
-    cursor = cnx.cursor()
-    # Construir la sentencia SQL DELETE
-    delete_query = "DELETE FROM usuarios;"
+    contra = os.environ.get('CONTRA')
     try:
+        # Establecer la conexión a la base de datos
+        cnx = psycopg2.connect(user="wundvabjfd", password=contra,
+                               host="juegogustosmusicales-server.postgres.database.azure.com", port=5432,
+                               database="juegogustosmusicales-database")
+        cursor = cnx.cursor()
+        # Construir la sentencia SQL DELETE
+        delete_query = "DELETE FROM usuarios;"
         # Ejecutar la sentencia DELETE
         cursor.execute(delete_query)
         # Confirmar los cambios en la base de datos
