@@ -125,14 +125,14 @@ def clear():
     cursor = cnx.cursor()
 
     # Construir la sentencia SQL DELETE
-    delete_query = sql.SQL("DELETE FROM usuarios;")
+    delete_query = "DELETE FROM usuarios;"
 
     try:
         # Ejecutar la sentencia DELETE
         cursor.execute(delete_query)
 
         # Confirmar los cambios en la base de datos
-        conn.commit()
+        cnx.commit()
 
         return (f"La tabla usuarios ha sido vaciada exitosamente.")
     except Exception as e:
