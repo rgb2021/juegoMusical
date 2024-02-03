@@ -114,6 +114,34 @@ def countBd():
 def index():
     print('Request for index page received')
     return render_template('index.html')
+    
+@app.route('/clar')
+def clear():
+    # Establecer la conexión a la base de datos
+    cnx = psycopg2.connect(user="wundvabjfd", password=contra, host="juegogustosmusicales"
+                                                                        "-server.postgres.database"
+                                                                        ".azure.com", port=5432,
+                               database="juegogustosmusicales-database")
+    cursor = cnx.cursor()
+
+    # Construir la sentencia SQL DELETE
+    delete_query = sql.SQL("DELETE FROM usuarios;")
+
+    try:
+        # Ejecutar la sentencia DELETE
+        cursor.execute(delete_query)
+
+        # Confirmar los cambios en la base de datos
+        conn.commit()
+
+        return (f"La tabla usuarios ha sido vaciada exitosamente.")
+    except Exception as e:
+        # En caso de error, imprimir el mensaje de error
+        return (f"Error: {e}")
+    #finally:
+        # Cerrar el cursor y la conexión
+        #cursor.close()
+        #conn.close()
 
 
 @app.route('/favicon.ico')
