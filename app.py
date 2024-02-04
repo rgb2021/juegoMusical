@@ -144,6 +144,12 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/recibir_valoraciones', methods=['POST'])
+def recibir_valoraciones():
+    data = request.json
+    # Realiza el procesamiento necesario con los datos recibidos
+    print(data)
+    return jsonify({"mensaje": "Datos recibidos correctamente"})
 
 @app.route('/hello', methods=['POST'])
 def hello():

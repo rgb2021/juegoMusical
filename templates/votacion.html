@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Valoración Musical</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #1a1a1a;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #urlsContainer {
+            margin-top: 20px;
+        }
+
+        .urlItem {
+            margin-bottom: 20px;
+        }
+
+        .star {
+            color: #ffd70070;
+            cursor: pointer;
+        }
+
+        .selected {
+            color: #ffac33;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulario de Valoración Musical</h1>
+
+    <form id="valoracionForm">
+        <!-- Lista de URLs con desplegable y valoraciones -->
+        <div id="urlsContainer">
+            <!-- Aquí se generará dinámicamente la lista -->
+        </div>
+
+        <button type="button" onclick="enviarValoraciones()">Enviar Valoraciones</button>
+    </form>
+
+    <script>
+        // Datos de ejemplo
+        const urlsData = [
+            { url: "https://www.youtube.com/watch?v=3YDP9MKVhZc", nombres: ["nombre1", "nombre2"], valoracion: 0 , token : "kkkk"},
+            { url: "https://www.youtube.com/watch?v=ybPQGUfg4XQ", nombres: ["nombre1", "nombre2"], valoracion: 0 , token : "vvvv" },
+            // Agregar más datos según sea necesario
+        ];
+
+        // Función para generar dinámicamente la lista de URLs con desplegables y valoraciones
+        function generarListaUrls() {
+            const urlsContainer = document.getElementById('urlsContainer');
+
+            urlsData.forEach((data, index) => {
+                const urlItem = document.createElement('div');
+                urlItem.className = 'urlItem';
+
+                const urlElement = document.createElement('p');
+                urlElement.innerHTML = `<strong> ${data.token}              </strong>`;
+				
+				const url = document.createElement('a'); 
+				url.setAttribute('href',`${data.url}`);
+				url.innerHTML = 'link';
+
+                const nombresSelect = document.createElement('select');
+                nombresSelect.name = `nombres_${index}`;
+                data.nombres.forEach(nombre => {
+                    const option = document.createElement('option');
+                    option.value = nombre;
+                    option.text = nombre;
+                    nombresSelect.add(option);
+                });
+
+                const valoracionContainer = document.createElement('div');
+                valoracionContainer.className = 'valoracionContainer';
+
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement('span');
+                    star.className = 'star';
+                    star.innerHTML = '★';
+                    star.setAttribute('data-index', i);
+                    star.onclick = () => seleccionarValoracion(index, i);
+
+                    valoracionContainer.appendChild(star);
+                }
+
+				urlElement.appendChild(url);
+                urlItem.appendChild(urlElement);
+				
+                urlItem.appendChild(nombresSelect);
+                urlItem.appendChild(valoracionContainer);
+                urlsContainer.appendChild(urlItem);
+            });
+        }
+
+        // Función para seleccionar la valoración de estrellas
+        function seleccionarValoracion(urlIndex, valoracion) {
+            const urlItem = document.querySelector(`.urlItem:nth-child(${urlIndex + 1})`);
+            const stars = urlItem.querySelectorAll('.star');
+
+            for (let i = 0; i < stars.length; i++) {
+                if (i < valoracion) {
+                    stars[i].classList.add('selected');
+                } else {
+                    stars[i].classList.remove('selected');
+                }
+            }
+
+            // Actualizar la valoración en los datos
+            urlsData[urlIndex].valoracion = valoracion;
+        }
+
+        // Función para obtener los datos del formulario y enviarlos como JSON
+        function enviarValoraciones() {
+            const formData = {};
+
+            urlsData.forEach((data, index) => {
+                const nombreSelect = document.querySelector(`select[name="nombres_${index}"]`);
+                formData[data.token] = {
+                    nombre: nombreSelect.value,
+                    valoracion: data.valoracion,
+                };
+            });
+
+            // Enviar el JSON a la dirección deseada (aquí solo se mostrará en la consola)
+            console.log(JSON.stringify(formData));
+			
+			fetch('https://juegogustosmusicales.azurewebsites.net/recibir_valoraciones', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('Respuesta del servidor:', data);
+			})
+			.catch(error => {
+				console.error('Error al enviar los datos:', error);
+			});
+        }
+
+        // Llamar a la función para generar la lista al cargar la página
+        generarListaUrls();
+    </script>
+</body>
+</html>
