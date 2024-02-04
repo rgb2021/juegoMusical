@@ -146,7 +146,7 @@ def favicon():
                                
 
 @app.route('/votar')
-def recibir_valoraciones():
+def votar():
    return render_template('votacion.html')
 
 @app.route('/recibir_valoraciones', methods=['POST'])
