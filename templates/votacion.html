@@ -152,20 +152,11 @@
             // Enviar el JSON a la dirección deseada (aquí solo se mostrará en la consola)
             console.log(JSON.stringify(formData));
 			
-			fetch('https://juegogustosmusicales.azurewebsites.net/recibir_valoraciones', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(formData)
-			})
-			.then(response => response.json())
-			.then(data => {
-				console.log('Respuesta del servidor:', data);
-			})
-			.catch(error => {
-				console.error('Error al enviar los datos:', error);
-			});
+			// Codifica el objeto JSON como un parámetro de consulta
+			const parametrosURL = encodeURIComponent(JSON.stringify(formData));
+
+			// Redirige a la nueva ruta con los datos en la URL
+			window.location.href = '/recibir_valoraciones'?' + parametrosURL;
         }
 
         // Llamar a la función para generar la lista al cargar la página

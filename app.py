@@ -149,12 +149,15 @@ def favicon():
 def votar():
    return render_template('votacion.html')
 
-@app.route('/recibir_valoraciones', methods=['POST'])
+@app.route('/recibir_valoraciones')
 def recibir_valoraciones():
-    data = request.json
-    # Realiza el procesamiento necesario con los datos recibidos
-    print(data)
+    parametros_url = request.args.get('datos')  # Obtén el parámetro de la URL
+    datos_recibidos = json.loads(urllib.parse.unquote(parametros_url))
+
+    # Procesa los datos según tus necesidades
+    print("Datos recibidos:", datos_recibidos)
     return jsonify({"mensaje": "Datos recibidos correctamente"})
+
 
 @app.route('/hello', methods=['POST'])
 def hello():
