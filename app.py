@@ -143,6 +143,11 @@ def clear():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
+                               
+
+@app.route('/votar')
+def recibir_valoraciones():
+   return render_template('votacion.html')
 
 @app.route('/recibir_valoraciones', methods=['POST'])
 def recibir_valoraciones():
