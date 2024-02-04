@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template HTML con Datos</title>
+</head>
+<body>
+    <h1>Datos del JSON</h1>
+
+    <ul>
+        {% for key, value in datos.items() %}
+            <li>
+                <strong>{{ key }}</strong>:
+                Nombre: {{ value.nombre }}, Valoración: {{ value.valoracion }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

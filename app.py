@@ -159,7 +159,10 @@ def recibir_valoraciones():
 
     # Procesa los datos según tus necesidades
     print("Datos recibidos:", datos_recibidos)
-    return jsonify({"mensaje": "Datos recibidos correctamente"})
+    #return jsonify({"mensaje": "Datos recibidos correctamente"},{"datos":datos_recibidos})
+    
+    return render_template('votado.html', datos=datos_recibidos)
+
 
 
 @app.route('/hello', methods=['POST'])
