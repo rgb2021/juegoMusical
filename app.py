@@ -24,6 +24,11 @@ def createBd():
                               "url VARCHAR(255),token VARCHAR(255));")
         cursor.execute(create_table_query)
         cnx.commit()
+        
+        create_table_query = ("CREATE TABLE IF NOT EXISTS votaciones (id SERIAL PRIMARY KEY,token VARCHAR(255), nombre VARCHAR(255),valoracion INTEGER);")
+        cursor.execute(create_table_query)
+        cnx.commit()
+        
     except Exception as e:
         # Si se produce un error, imprímelo
         return str(e)
@@ -76,7 +81,14 @@ def listBd():
         select_query = "SELECT * FROM usuarios;"
         cursor.execute(select_query)
         # Obtener todos los resultados
-        elementos = cursor.fetchall()
+        listaUsuarios = cursor.fetchall()
+        
+        cursor = cnx.cursor()
+        select_query = "SELECT * FROM votaciones;"
+        cursor.execute(select_query)
+        # Obtener todos los resultados
+        listaVotaciones = cursor.fetchall()
+        
         #numero_filas = cursor.fetchone()[0]
     except Exception as e:
         # En caso de error, imprimir el mensaje de error
@@ -85,7 +97,7 @@ def listBd():
         numero_filas = 0
         return "petando voy"
 
-    return render_template('lista_elementos.html', elementos=elementos)
+    return render_template('lista_elementos.html', listaUsuarios=listaUsuarios , listaVotaciones=listaVotaciones )
     #return str(numero_filas)
 
 
@@ -160,6 +172,28 @@ def recibir_valoraciones():
     # Procesa los datos según tus necesidades
     print("Datos recibidos:", datos_recibidos)
     #return jsonify({"mensaje": "Datos recibidos correctamente"},{"datos":datos_recibidos})
+
+    try:
+        cnx = psycopg2.connect(user="wundvabjfd", password=contra,
+                               host="juegogustosmusicales-server.postgres.database.azure.com", port=5432,
+                               database="juegogustosmusicales-database")
+        cursor = cnx.cursor()
+        # Recorre el JSON y realiza una inserción por cada fila en la base de datos
+        for key, value in datos_recibidos.items():
+            nombre = value.get('nombre')
+            valoracion = value.get('valoracion')
+
+            # Realiza la inserción en la base de datos
+            cursor.execute("INSERT INTO votaciones (token , nombre, valoracion) VALUES (%s %s, %d)", (key,nombre, valoracion))
+
+            # Confirma la transacción
+            cnx.commit()
+
+        return jsonify({"mensaje": "Inserciones realizadas correctamente"})
+    except Exception as e:
+        # Si hay algún error, realiza un rollback
+        cnx.rollback()
+        return jsonify({"error": str(e)})
     
     return render_template('votado.html', datos=datos_recibidos)
 
