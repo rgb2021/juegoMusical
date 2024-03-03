@@ -159,7 +159,7 @@ def clear():
     # Cerrar el cursor y la conexión
     #cursor.close()
     #conn.close()
-    return "La tabla usuarios ha sido vaciada exitosamente."
+    return "La tabla usuarios y votaciones han sido vaciadas exitosamente."
 
 @app.route('/favicon.ico')
 def favicon():
