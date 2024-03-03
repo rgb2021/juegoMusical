@@ -166,6 +166,7 @@ def votar():
 
 @app.route('/recibir_valoraciones')
 def recibir_valoraciones():
+    contra = os.environ.get('CONTRA')
     parametros_url = request.args.get('datos')  # Obtén el parámetro de la URL
     datos_recibidos = json.loads(urllib.parse.unquote(parametros_url))
 
@@ -187,10 +188,10 @@ def recibir_valoraciones():
 
             elementos.append({key,nombre,valoracion})
             # Realiza la inserción en la base de datos
-            #cursor.execute("INSERT INTO votaciones (token , nombre, valoracion) VALUES (%s, %s, %s)", (key,nombre, valoracion))
+            cursor.execute("INSERT INTO votaciones (token , nombre, valoracion) VALUES (%s, %s, %s)", (key,nombre, valoracion))
 
             # Confirma la transacción
-            #cnx.commit()
+            cnx.commit()
 
         return jsonify({"mensaje": str(elementos)})
     except Exception as e:
