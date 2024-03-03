@@ -179,25 +179,26 @@ def recibir_valoraciones():
                                database="juegogustosmusicales-database")
         cursor = cnx.cursor()
         # Recorre el JSON y realiza una inserción por cada fila en la base de datos
+
+        elementos = []
         for key, value in datos_recibidos.items():
             nombre = value.get('nombre')
             valoracion = value.get('valoracion')
 
+            elementos.append({key,nombre,valoracion})
             # Realiza la inserción en la base de datos
-            cursor.execute("INSERT INTO votaciones (token , nombre, valoracion) VALUES (%s, %s, %s)", (key,nombre, valoracion))
+            #cursor.execute("INSERT INTO votaciones (token , nombre, valoracion) VALUES (%s, %s, %s)", (key,nombre, valoracion))
 
             # Confirma la transacción
-            cnx.commit()
+            #cnx.commit()
 
-        return jsonify({"mensaje": "Inserciones realizadas correctamente"})
+        return jsonify({"mensaje": str(elementos)})
     except Exception as e:
         # Si hay algún error, realiza un rollback
         cnx.rollback()
         return jsonify({"error": str(e)})
     
-    return render_template('votado.html', datos=datos_recibidos)
-
-
+    return render_template('votado.html', datos=datos_recibidos.items())
 
 @app.route('/hello', methods=['POST'])
 def hello():
