@@ -193,7 +193,6 @@ def recibir_valoraciones():
             # Confirma la transacción
             cnx.commit()
 
-        return jsonify({"mensaje": str(elementos)})
     except Exception as e:
         # Si hay algún error, realiza un rollback
         cnx.rollback()
