@@ -95,7 +95,7 @@ def listBd():
         #elementos = []
         #mensaje_error = f'Error al obtener elementos: {str(e)}'
         numero_filas = 0
-        return "petando voy"
+        return str(e)
 
     return render_template('lista_elementos.html', listaUsuarios=listaUsuarios , listaVotaciones=listaVotaciones )
     #return str(numero_filas)
