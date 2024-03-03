@@ -184,7 +184,7 @@ def recibir_valoraciones():
             valoracion = value.get('valoracion')
 
             # Realiza la inserción en la base de datos
-            cursor.execute("INSERT INTO votaciones (token , nombre, valoracion) VALUES (%s %s, %d)", (key,nombre, valoracion))
+            cursor.execute("INSERT INTO votaciones (token , nombre, valoracion) VALUES (%s, %s, %d)", (key,nombre, valoracion))
 
             # Confirma la transacción
             cnx.commit()
