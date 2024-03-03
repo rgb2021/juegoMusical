@@ -171,7 +171,7 @@ def recibir_valoraciones():
 
     # Procesa los datos según tus necesidades
     print("Datos recibidos:", datos_recibidos)
-    return jsonify({"mensaje": "Datos recibidos correctamente"},{"datos":datos_recibidos})
+    #return jsonify({"mensaje": "Datos recibidos correctamente"},{"datos":datos_recibidos})
 
     try:
         cnx = psycopg2.connect(user="wundvabjfd", password=contra,
