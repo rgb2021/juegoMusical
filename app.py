@@ -167,11 +167,11 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
                                
 
-@app.route('/votar')
+@app.route('/vote')
 def votar():
    return render_template('votacion.html')
 
-@app.route('/recibir_valoraciones')
+@app.route('/ratings')
 def recibir_valoraciones():
     contra = os.environ.get('CONTRA')
     parametros_url = request.args.get('datos')  # Obtén el parámetro de la URL

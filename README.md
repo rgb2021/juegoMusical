@@ -1,10 +1,20 @@
-# Deploy a Python (Flask) web app to Azure App Service - Sample Application
+# Introduccion
+Esto es un pequeño proyecto casero para crear un juego en el que un grupo de usuarios selecciona un video musical de youtube. 
+Cuando todos los usuarios han seleccionado el suyo. Se genera una lista con todos los videos y todos los usuarios votan para dar una puntuacion a la cancion y para intentar acertar quien selecciono cada cancion.
 
-This is the sample Flask application for the Azure Quickstart [Deploy a Python (Django or Flask) web app to Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/quickstart-python). For instructions on how to create the Azure resources and deploy the application to Azure, refer to the Quickstart article.
-
-Sample applications are available for the other frameworks here:
-
-* Django [https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart](https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart)
-* FastAPI [https://github.com/Azure-Samples/msdocs-python-fastapi-webapp-quickstart](https://github.com/Azure-Samples/msdocs-python-fastapi-webapp-quickstart)
-
-If you need an Azure account, you can [create one for free](https://azure.microsoft.com/en-us/free/).
+Se ha creado una pequeña API para gestionar el juego
+# Metodos API
+## create
+Este metodo crea las tablas usuarios y votaciones en la base de datos
+## insert
+Este metodo genera un token y lo inserta en la tabla de usuarios junto con el nombre y la url del video seleccionado
+## list
+Este metodo imprime todos los usuarios y las votaciones registrados hasta ahora
+## count
+Este metodo muestra el numero de usuarios
+## clear
+Este metodo elimina la tabla de usuarios y las votaciones
+## vote
+Este metodo genera el formulario de votacion
+## ratings
+Este metodo procesa las votaciones 
