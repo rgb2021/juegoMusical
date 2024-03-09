@@ -211,7 +211,7 @@ def votar():
         cnx.rollback()
         return jsonify({"error": str(e)})
 
-    return render_template('votacion.html', datos=res)
+    return render_template('votacion.html', datos=str(res))
 
 
 @app.route('/ratings')
