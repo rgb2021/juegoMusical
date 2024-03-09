@@ -67,12 +67,7 @@
     </form>
 
     <script>
-        // Datos de ejemplo
-        const urlsData = [
-            { url: "https://www.youtube.com/watch?v=3YDP9MKVhZc", nombres: ["nombre1", "nombre2"], valoracion: 0 , token : "kkkk"},
-            { url: "https://www.youtube.com/watch?v=ybPQGUfg4XQ", nombres: ["nombre1", "nombre2"], valoracion: 0 , token : "vvvv" },
-            // Agregar más datos según sea necesario
-        ];
+        var urlsData = JSON.parse('{{ datos | safe }}');
 
         // Función para generar dinámicamente la lista de URLs con desplegables y valoraciones
         function generarListaUrls() {

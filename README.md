@@ -1,6 +1,6 @@
 # Introduccion
 Esto es un pequeño proyecto casero para crear un juego en el que un grupo de usuarios selecciona un video musical de youtube. 
-Cuando todos los usuarios han seleccionado el suyo. Se genera una lista con todos los videos y todos los usuarios votan para dar una puntuacion a la cancion y para intentar acertar quien selecciono cada cancion.
+Cuando todos los usuarios han seleccionado el suyo. Se genera una lista con todos los videos y todos los usuarios votan para dar una puntuacion a la cancion y para intentar adivinar quien selecciono cada cancion.
 
 Se ha creado una pequeña API para gestionar el juego
 # Metodos API
